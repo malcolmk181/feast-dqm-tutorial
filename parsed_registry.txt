@@ -1,0 +1,46 @@
+Registry.proto definition: https://github.com/feast-dev/feast/blob/v0.31-branch/protos/feast/core/Registry.proto
+
+ParsedResults(
+results=[
+    ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='string', data='\n\x04taxi"\x07taxi_idJ\x0cdqm_tutorial'), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172357), ParsedResult(field=2, wire_type='varint', data=564797000)])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172772), ParsedResult(field=2, wire_type='varint', data=920998000)]))]))])), ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='string', data='\n\x07__dummy"\n__dummy_idJ\x0cdqm_tutorial'), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172357), ParsedResult(field=2, wire_type='varint', data=564981000)])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172772), ParsedResult(field=2, wire_type='varint', data=921246000)]))]))])), ParsedResult(field=3, wire_type='string', data='1'), ParsedResult(field=4, wire_type='string', data='64960bb3-711b-4aa7-af3a-72c377ae239d'), ParsedResult(field=5, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172813), ParsedResult(field=2, wire_type='varint', data=647745000)])), ParsedResult(field=6, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='string', data='trip_stats'), ParsedResult(field=2, wire_type='string', data='dqm_tutorial'), ParsedResult(field=3, wire_type='string', data='taxi'), ParsedResult(field=4, wire_type='string', data='\n\x15total_miles_travelled\x10\x05'), ParsedResult(field=4, wire_type='string', data='\n\x12total_trip_seconds\x10\x05'), ParsedResult(field=4, wire_type='string', data='\n\x0ctotal_earned\x10\x05'), ParsedResult(field=4, wire_type='string', data='\n\ntrip_count\x10\x04'), ParsedResult(field=6, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=86400)])), ParsedResult(field=7, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1), ParsedResult(field=3, wire_type='string', data='day'),
+    
+    ParsedResult(field=11, wire_type='string', data='\n\x02\n\x00\x12\x13trips_stats.parquet'),
+    
+    ParsedResult(field=17, wire_type='string', data='feast.infra.offline_stores.file_source.FileSource'), ParsedResult(field=20, wire_type='string', data='trips_stats.parquet')])), ParsedResult(field=8, wire_type='varint', data=1), ParsedResult(field=12, wire_type='string', data='\n\x07taxi_id\x10\x02')])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172357), ParsedResult(field=2, wire_type='varint', data=562047000)])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172772), ParsedResult(field=2, wire_type='varint', data=913434000)]))]))])), ParsedResult(field=8, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='string', data='on_demand_stats'), ParsedResult(field=2, wire_type='string', data='dqm_tutorial'), ParsedResult(field=3, wire_type='string', data='\n\x08avg_fare\x10\x05'), ParsedResult(field=3, wire_type='string', data='\n\tavg_speed\x10\x05'), ParsedResult(field=3, wire_type='string', data='\n\x10avg_trip_seconds\x10\x05'), ParsedResult(field=3, wire_type='string', data='\n\x0fearned_per_hour\x10\x05'), ParsedResult(field=4, wire_type='string', data='\n\ntrip_stats\x12c\x1aa\n\ntrip_stats\x12\x19\n\x15total_miles_travelled\x10\x05\x12\x16\n\x12total_trip_seconds\x10\x05\x12\x10\n\x0ctotal_earned\x10\x05\x12\x0e\n\ntrip_count\x10\x04'), ParsedResult(field=5, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='string', data='on_demand_stats'), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=64, wire_type='varint', data=8469), ParsedResult(field=0, wire_type='string', data=''), ParsedResult(field=0, wire_type='varint', data=0), ParsedResult(field=0, wire_type='varint', data=0), ParsedResult(field=0, wire_type='varint', data=1292)])), ParsedResult(field=3, wire_type='string', data='@on_demand_feature_view(\n    sources=[\n      trips_stats_fv,\n    ],\n    schema=[\n        Field(name="avg_fare", dtype=Float64),\n        Field(name="avg_speed", dtype=Float64),\n        Field(name="avg_trip_seconds", dtype=Float64),\n        Field(name="earned_per_hour", dtype=Float64),\n    ]\n)\ndef on_demand_stats(inp: pd.DataFrame) -> pd.DataFrame:\n    out = pd.DataFrame()\n    out["avg_fare"] = inp["total_earned"] / inp["trip_count"]\n    out["avg_speed"] = 3600 * inp["total_miles_travelled"] / inp["total_trip_seconds"]\n    out["avg_trip_seconds"] = inp["total_trip_seconds"] / inp["trip_count"]\n    out["earned_per_hour"] = 3600 * inp["total_earned"] / inp["total_trip_seconds"]\n    return out\n')]))])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172357), ParsedResult(field=2, wire_type='varint', data=562644000)])), ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172772), ParsedResult(field=2, wire_type='varint', data=914378000)]))]))])),
+    
+    
+    
+    ParsedResult(field=11, wire_type='length_delimited', 
+        data=ParsedResults(
+            results=[
+                ParsedResult(field=1, wire_type='string', data='\n\x0emy_training_ds\x12\x0cdqm_tutorial\x1a trip_stats:total_miles_travelled\x1a\x1dtrip_stats:total_trip_seconds\x1a\x17trip_stats:total_earned\x1a\x15trip_stats:trip_count\x1a\x18on_demand_stats:avg_fare\x1a on_demand_stats:avg_trip_seconds\x1a\x19on_demand_stats:avg_speed\x1a\x1fon_demand_stats:earned_per_hour"\x07taxi_id2\x1e"\x1c\n\x02\n\x00\x12\x16my_training_ds.parquet'),
+                ParsedResult(field=2, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1691172813), ParsedResult(field=2, wire_type='varint', data=647333000)])), ParsedResult(field=3, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1559347200)])), ParsedResult(field=4, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1561939200)]))]))
+            ])),
+    
+    
+    
+    ParsedResult(field=12, wire_type='length_delimited', data=ParsedResults(results=[ParsedResult(field=1, wire_type='varint', data=1), ParsedResult(field=3, wire_type='string', data='day'),
+    
+    ParsedResult(field=11, wire_type='string', data='\n\x02\n\x00\x12\x13trips_stats.parquet'),
+    
+    ParsedResult(field=17, wire_type='string', data='feast.infra.offline_stores.file_source.FileSource'), ParsedResult(field=20, wire_type='string', data='trips_stats.parquet'), ParsedResult(field=21, wire_type='string', data='dqm_tutorial')])), ParsedResult(field=15, wire_type='string', data='\n\x0cdqm_tutorial\x12$ca3abbda-d2fc-41c9-9c7b-02c64f6b7f13')
+    ]
+)
+
+SavedDataset.proto parsing:
+ParsedResults(
+    results=[
+        ParsedResult(field=1, wire_type='string', data='my_training_ds'),
+        ParsedResult(field=2, wire_type='string', data='dqm_tutorial'),
+        ParsedResult(field=3, wire_type='string', data='trip_stats:total_miles_travelled'),
+        ParsedResult(field=3, wire_type='string', data='trip_stats:total_trip_seconds'),
+        ParsedResult(field=3, wire_type='string', data='trip_stats:total_earned'),
+        ParsedResult(field=3, wire_type='string', data='trip_stats:trip_count'),
+        ParsedResult(field=3, wire_type='string', data='on_demand_stats:avg_fare'),
+        ParsedResult(field=3, wire_type='string', data='on_demand_stats:avg_trip_seconds'),
+        ParsedResult(field=3, wire_type='string', data='on_demand_stats:avg_speed'),
+        ParsedResult(field=3, wire_type='string', data='on_demand_stats:earned_per_hour'),
+        ParsedResult(field=4, wire_type='string', data='taxi_id'),
+        ParsedResult(field=6, wire_type='string', data='"\x1c\n\x02\n\x00\x12\x16my_training_ds.parquet')
+    ]
+)
